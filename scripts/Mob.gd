@@ -4,9 +4,9 @@ class_name Mob extends CharacterBody3D
 ## They move somewhat towards the player at a random speed.
 
 ## Minimum speed of the mob in meters per second.
-@export var min_speed: float = 10
+@export var min_speed: int = 10
 ## Maximum speed of the mob in meters per second.
-@export var max_speed: float = 18
+@export var max_speed: int = 18
 
 
 ## Similarly to the player,
