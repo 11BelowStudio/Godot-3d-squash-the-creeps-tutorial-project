@@ -1,4 +1,5 @@
-class_name Main extends Node3D
+class_name Main
+extends Node3D
 ## This class is used for the spawn mechanism.
 
 
@@ -14,6 +15,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass;
+
 
 ## Invoked by the MobTimer whenever it times out (every 0.5s)
 ## This spawns in a new mob, and initializes it.

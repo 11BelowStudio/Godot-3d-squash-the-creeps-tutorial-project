@@ -1,10 +1,18 @@
-class_name Mob extends CharacterBody3D
+class_name Mob
+extends CharacterBody3D
 ## Class that represents enemies.
 ##
-## They move somewhat towards the player at a random speed.
+## They move somewhat towards the player at a random speed, and can be squashed
+
+
+## This signal is emitted when the player jumped on the mob.
+signal squashed
+
 
 ## Minimum speed of the mob in meters per second.
 @export var min_speed: int = 10
+
+
 ## Maximum speed of the mob in meters per second.
 @export var max_speed: int = 18
 
@@ -18,6 +26,7 @@ class_name Mob extends CharacterBody3D
 func _physics_process(_delta: float) -> void:
 	move_and_slide();
 	pass;
+
 
 ## This function will be called from the Main scene.
 ## This will initialize the direction and velocity of the mob.
@@ -43,10 +52,19 @@ func initialize(start_position: Vector3, player_position: Vector3) -> void:
 	velocity = velocity.rotated(Vector3.UP, rotation.y);
 	pass;
 
+
 ## Connected the 'screen_exited()' signal from our VisibleOnScreenNotifier3D
 ## to the Mob script, generating this function.
 ## This will be called whenever the mob exits the visible area.
 ## This function calls the `queue_free()` function - destroying this object.
 func _on_visibility_notifier_screen_exited() -> void:
 	queue_free(); # this mob instance is gonna get destroyed
+	pass;
+
+
+## Will be called when squashed by player.
+## Emits the 'squashed' signal, and destroys this mob instance.
+func squash() -> void:
+	squashed.emit();
+	queue_free();
 	pass;

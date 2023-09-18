@@ -1,12 +1,11 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1695050878
+::res://::1695055316
 default_bus_layout.tres::AudioBusLayout::-1::1695046128::0::1::::<><>::
 default_env.tres::Environment::-1::1695046128::0::1::::<><>::
 icon.png::CompressedTexture2D::3010381306673714119::1695046084::1695046152::1::::<><>::
-main.tscn::PackedScene::8938102623631050296::1695050574::0::1::::<><>::uid://dkd4kerbq7axo::::res://player.tscn
-mob.tscn::PackedScene::4386776306247718818::1695050858::0::1::::<><>::uid://craw0hcdg1a8a::::res://art/mob.glb
-Player.gd::GDScript::-1::1695050065::0::1::::Player<>CharacterBody3D<>::
-player.tscn::PackedScene::7869122507874233724::1695050881::0::1::::<><>::uid://bl2xc53clxsww::::res://art/player.glb<>res://Player.gd
+main.tscn::PackedScene::8938102623631050296::1695055311::0::1::::<><>::uid://dkd4kerbq7axo::::res://player.tscn<>res://scripts/main.gd<>uid://b3q8tg71sbkek::::res://mob.tscn
+mob.tscn::PackedScene::4386776306247718818::1695055316::0::1::::<><>::res://scripts/mob.gd<>uid://craw0hcdg1a8a::::res://art/mob.glb
+player.tscn::PackedScene::7869122507874233724::1695055320::0::1::::<><>::uid://bl2xc53clxsww::::res://art/player.glb<>res://scripts/Player.gd
 ::res://art/::1695046539
 body.material::StandardMaterial3D::5907454858549093404::1695046539::0::1::::<><>::
 eye.material::StandardMaterial3D::-1::1695046084::0::1::::<><>::
@@ -19,4 +18,7 @@ pupil.material::StandardMaterial3D::-1::1695046084::0::1::::<><>::
 ::res://fonts/::1695046151
 LICENSE.txt::TextFile::-1::1695046084::0::1::::<><>::
 Montserrat-Medium.ttf::FontFile::5142327403300678967::1695046084::1695046151::1::::<><>::
-::res://scripts/::1695050878
+::res://scripts/::1695055316
+main.gd::GDScript::-1::1695055238::0::1::::Main<>Node3D<>::
+mob.gd::GDScript::-1::1695055230::0::1::::Mob<>CharacterBody3D<>::
+Player.gd::GDScript::-1::1695055216::0::1::::Player<>CharacterBody3D<>::

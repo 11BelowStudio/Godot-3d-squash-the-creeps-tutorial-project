@@ -2,7 +2,7 @@
 # A file is a class!
 
 
-# (optional) class definition:
+# (optional) class name. Allows this class to become a global type:
 class_name Player
 
 # inheritance
@@ -37,23 +37,38 @@ extends CharacterBody3D
 ##  @export (or c# [Export] - works with properties) -> Editable via inspector.
 @export var speed: float = 14;
 
+
 ## The downward acceleration when in the air, in meters per second squared.
 ## Editable via inspector due to @export.
 ## float (basically same as double in gdscript)
 @export var fall_acceleration: float = 75;
 
+
+## Vertical impulse applied to the character upon jumping in meters per second.
+@export var jump_impulse: float = 20
+
+
+## Vertical impulse applied to the character upon bouncing over a mob in
+## meters per second.
+## Not as big as the jump_impulse.
+@export var bounce_impulse: float = 16
+
+
 ## The character's target velocity.
-## Declared as a property because we want to reuse it between frames.
+## Declared as a property because we want to re-use it between frames.
 ## Not editable via inspector due to no @export on it.
 var target_velocity: Vector3 = Vector3.ZERO;
+
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass;
 
+
 ## This is Godot's version of the Update method.
 func _process(_delta: float) -> void:
 	pass;
+
 
 ## This is Godot's version of the FixedUpdate method.
 func _physics_process(delta: float) -> void:
@@ -94,6 +109,36 @@ func _physics_process(delta: float) -> void:
 		# If in air, fall towards floor.
 		# Literally gravity.
 		target_velocity.y = target_velocity.y - (fall_acceleration * delta);
+	
+	# Jumping
+	# Apply jump impulse if currently on floor and jump has just been pressed.
+	if is_on_floor() and Input.is_action_just_pressed("jump"):
+		target_velocity.y = jump_impulse;
+	
+	# Iterate through all collisions that occurred this frame
+	# no collisions -> skipped
+	# nb: only allowed to annotate 'for index: int in ...' from Godot 4.2+
+	for index in range(get_slide_collision_count()):
+		# We get one of the collisions with the player
+		var collision: KinematicCollision3D = get_slide_collision(index);
+		
+		# if collision is with ground -> skip it
+		if (collision.get_collider() == null):
+			continue;
+		
+		# if collision is with mob -> do the thing
+		if collision.get_collider().is_in_group("mob"):
+			# Get the Mob itself
+			var mob: Mob = collision.get_collider();
+			# Check that we're hitting it from above
+			# by checking if the dot product (~angle similarity) between
+			# the UP vector and the normal (perpendicular) of the collision
+			# is greater than 0.1.
+			# (dot > 0 means angle < 90 deg)
+			if Vector3.UP.dot(collision.get_normal()) > 0.1:
+				# if we are hitting from above, squash it and bounce
+				mob.squash();
+				target_velocity.y = bounce_impulse;
 	
 	# Moving the Character
 	# set character velocity to new target velocity

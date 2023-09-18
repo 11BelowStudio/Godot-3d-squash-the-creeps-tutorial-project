@@ -4,3 +4,6 @@ res://scripts/Player.gd
 res://mob.tscn
 res://scripts/Mob.gd
 res://scripts/Main.gd
+res://scripts/player.gd
+res://scripts/main.gd
+res://scripts/mob.gd

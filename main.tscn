@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://d0lxikpp0xavg"]
 
 [ext_resource type="PackedScene" uid="uid://dkd4kerbq7axo" path="res://player.tscn" id="1_4vuv5"]
-[ext_resource type="Script" path="res://scripts/Main.gd" id="1_psldd"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_kfmcm"]
 [ext_resource type="PackedScene" uid="uid://b3q8tg71sbkek" path="res://mob.tscn" id="2_71mnx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_whsvx"]
@@ -21,11 +21,13 @@ _data = {
 point_count = 5
 
 [node name="Main" type="Node3D"]
-script = ExtResource("1_psldd")
+script = ExtResource("1_kfmcm")
 mob_scene = ExtResource("2_71mnx")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 transform = Transform3D(60, 0, 0, 0, 2, 0, 0, 0, 60, 0, 0, 0)
@@ -48,7 +50,7 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19)
 projection = 1
 size = 19.0
-far = 100.0
+far = 50.0
 
 [node name="Cylinders" type="Node3D" parent="."]
 visible = false
@@ -77,7 +79,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_b5bbe")
 curve = SubResource("Curve3D_imb51")
 
 [node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
-transform = Transform3D(0.00632897, 0, -0.99998, 0, 1, 0, 0.99998, 0, 0.00632897, -14.1355, 0, -14.9232)
+transform = Transform3D(0.00632969, 0, -0.99998, 0, 1, 0, 0.99998, 0, 0.00632969, -14.1355, 0, -14.9232)
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
