@@ -47,12 +47,16 @@ extends CharacterBody3D
 ## Not editable via inspector due to no @export on it.
 var target_velocity: Vector3 = Vector3.ZERO;
 
+## Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass;
+
 ## This is Godot's version of the Update method.
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	pass;
 
 ## This is Godot's version of the FixedUpdate method.
-func _physics_process(delta: float):
+func _physics_process(delta: float) -> void:
 	# we start by calculating input direction vector
 	# from global Input object in this function
 	
@@ -96,4 +100,5 @@ func _physics_process(delta: float):
 	velocity = target_velocity;
 	# then we call CharacterBody3D.move_and_slide()
 	# to smoothly move it with that velocity.
-	move_and_slide(); 
+	move_and_slide();
+	pass;
