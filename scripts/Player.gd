@@ -32,6 +32,11 @@ extends CharacterBody3D
 # need to go before functions/properties to document them.
 # but needs to go under the extends at the top of the file.
 
+
+## Emitted when the player is hit by a mob.
+## Will be used later to end the game.
+signal hit
+
 ## Speed in metres per second.
 ## float (basically same as double in gdscript).
 ##  @export (or c# [Export] - works with properties) -> Editable via inspector.
@@ -71,6 +76,10 @@ func _process(_delta: float) -> void:
 
 
 ## This is Godot's version of the FixedUpdate method.
+## This method obtains current inputs, works out target velocity
+## based on those inputs + gravity + jumping,
+## squashes any enemies that the player object is landing on,
+## and then updates velociy + gets physics to move the object.
 func _physics_process(delta: float) -> void:
 	# we start by calculating input direction vector
 	# from global Input object in this function
@@ -146,4 +155,20 @@ func _physics_process(delta: float) -> void:
 	# then we call CharacterBody3D.move_and_slide()
 	# to smoothly move it with that velocity.
 	move_and_slide();
+	pass;
+
+
+## Called by MobDetector Area3D upon colliding with another node
+## (specifically, a Mob node)
+## All this actually does is call the 'die' function.
+func _on_mob_detector_body_entered(_body: Node3D) -> void:
+	die();
+	pass;
+
+
+## Call this to get the player to emit the 'hit' signal
+## and then destroy the player.
+func die() -> void:
+	hit.emit();
+	queue_free();
 	pass;

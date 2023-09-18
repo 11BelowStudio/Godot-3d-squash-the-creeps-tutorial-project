@@ -32,7 +32,7 @@ func _on_mob_timer_timeout() -> void:
 	mob_spawn_location.progress_ratio = randf();
 	
 	# obtain player position
-	var player_position: Vector3 = $Player.position
+	var player_position: Vector3 = $Player.position;
 	
 	# then we initialize the mob
 	mob.initialize(mob_spawn_location.position, player_position);
@@ -40,3 +40,12 @@ func _on_mob_timer_timeout() -> void:
 	# and finally add the mob to the Main scene
 	add_child(mob);
 	pass;
+
+
+## Called by the player's "hit" signal
+## (emitted by player once the player has been hit (and dies))
+## Stops the mob timer, and generally starts the game over logic.
+func _on_player_hit() -> void:
+	$MobTimer.stop();
+	pass;
+

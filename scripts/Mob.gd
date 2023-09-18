@@ -31,6 +31,9 @@ func _physics_process(_delta: float) -> void:
 ## This function will be called from the Main scene.
 ## This will initialize the direction and velocity of the mob.
 func initialize(start_position: Vector3, player_position: Vector3) -> void:
+	# make sure player_position.y matches start_position.y, avoids misalignment
+	player_position.y = start_position.y;
+	
 	# We position the mob by placing it at start_position
 	# and rotate it towards player_position, so it looks at the player.
 	look_at_from_position(start_position, player_position, Vector3.UP);
