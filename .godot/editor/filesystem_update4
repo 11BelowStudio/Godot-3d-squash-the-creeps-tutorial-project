@@ -7,3 +7,5 @@ res://scripts/Main.gd
 res://scripts/player.gd
 res://scripts/main.gd
 res://scripts/mob.gd
+res://scripts/score_label.gd
+res://MusicPlayer.tscn

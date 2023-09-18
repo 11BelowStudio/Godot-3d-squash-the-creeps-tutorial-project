@@ -7,12 +7,14 @@ extends Node3D
 @export var mob_scene: PackedScene
 
 
-# Called when the node enters the scene tree for the first time.
+## Called when the node enters the scene tree for the first time.
+## Hides the retry overlay at the start of the game.
 func _ready() -> void:
-	pass; # Replace with function body.
+	$UserInterface/Retry.hide();
+	pass;
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass;
 
@@ -37,8 +39,12 @@ func _on_mob_timer_timeout() -> void:
 	# then we initialize the mob
 	mob.initialize(mob_spawn_location.position, player_position);
 	
-	# and finally add the mob to the Main scene
+	# and then add the mob to the Main scene
 	add_child(mob);
+	
+	# finally, we connect the mob to the score label,
+	# to update our score whenever a mob gets squashed
+	mob.squashed.connect($UserInterface/ScoreLabel._on_mob_squashed.bind());
 	pass;
 
 
@@ -46,6 +52,19 @@ func _on_mob_timer_timeout() -> void:
 ## (emitted by player once the player has been hit (and dies))
 ## Stops the mob timer, and generally starts the game over logic.
 func _on_player_hit() -> void:
+	# no more mobs will spawn
 	$MobTimer.stop();
+	# show the retry overlay
+	$UserInterface/Retry.show();
 	pass;
 
+
+## This callback function gets invoked whenever an 'unhandled input' happens.
+## In this case, if Enter ("ui_accept") is pressed
+## whilst the retry overlay is visible, the current scene is reloaded,
+## allowing the game to restart.
+func _unhandled_input(event: InputEvent) -> void:
+	if (event.is_action_pressed("ui_accept") && $UserInterface/Retry.visible):
+		# reload (restart) current scene
+		get_tree().reload_current_scene();
+	pass;
