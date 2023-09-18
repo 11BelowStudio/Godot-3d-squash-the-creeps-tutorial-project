@@ -1,3 +1,2 @@
-res://art/body.material
-res://main.tscn
 res://player.tscn
+res://Player.gd
