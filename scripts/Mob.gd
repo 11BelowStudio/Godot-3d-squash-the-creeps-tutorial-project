@@ -46,13 +46,17 @@ func initialize(start_position: Vector3, player_position: Vector3) -> void:
 	# then, we rotate that velocity towards the player.
 	
 	# step 1: random speed (int) using randi_range
-	var rand_speed: int = randi_range(min_speed, max_speed);
+	var random_speed: int = randi_range(min_speed, max_speed);
 	# step 2: calculate a forward velocity based on that speed
-	velocity = Vector3.FORWARD * rand_speed;
+	velocity = Vector3.FORWARD * random_speed;
 	# step 3: rotate velocity vector to match mob direction vector
 	# by using the mob's rotation.y value
 	# so the mob moves in the direction it's looking in
 	velocity = velocity.rotated(Vector3.UP, rotation.y);
+	
+	# finally, get it to start playing the animation,
+	# with speed depending on roughly how fast the mob is moving
+	$AnimationPlayer.speed_scale = random_speed / min_speed
 	pass;
 
 

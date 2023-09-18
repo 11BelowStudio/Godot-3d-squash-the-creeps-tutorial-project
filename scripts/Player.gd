@@ -103,6 +103,11 @@ func _physics_process(delta: float) -> void:
 		direction = direction.normalized();
 		# then we make the character look in that direction
 		$Pivot.look_at(position + direction, Vector3.UP);
+		# also animation plays at 4x speed
+		$AnimationPlayer.speed_scale = 4;
+	else:
+		# otherwise (if no input), animation plays at 1x speed
+		$AnimationPlayer.speed_scale = 1;
 	
 	# Now we update velocity.
 	# need to calculate ground vel and fall vel seperately.
@@ -155,6 +160,9 @@ func _physics_process(delta: float) -> void:
 	# then we call CharacterBody3D.move_and_slide()
 	# to smoothly move it with that velocity.
 	move_and_slide();
+	
+	# also the pivot (parent of player character) arcs when jumping
+	$Pivot.rotation.x = PI / 6 * velocity.y / jump_impulse;
 	pass;
 
 
